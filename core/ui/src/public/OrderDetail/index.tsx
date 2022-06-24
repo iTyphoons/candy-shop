@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { CandyShop } from '@liqnft/candy-shop-sdk';
+import { Nft, Order as OrderSchema, SingleBase } from '@liqnft/candy-shop-types';
 import { BN, web3 } from '@project-serum/anchor';
 import { AnchorWallet } from '@solana/wallet-adapter-react';
-
-import { CandyShop } from '@liqnft/candy-shop-sdk';
-import { Nft, SingleBase, Order as OrderSchema } from '@liqnft/candy-shop-types';
-
+import { IconVerified } from 'assets/IconVerified';
 import BuyModalConfirmed from 'components/BuyModal/BuyModalConfirmed';
 import { Modal } from 'components/Modal';
 import { NftAttributes } from 'components/NftAttributes';
-import { Processing } from 'components/Processing';
-import { Viewer } from 'components/Viewer';
 import { NftStat } from 'components/NftStat';
-
+import { Processing } from 'components/Processing';
+import { Tooltip } from 'components/Tooltip';
+import { Viewer } from 'components/Viewer';
 import { TransactionState } from 'model';
+import React, { useEffect, useState } from 'react';
 import { handleError } from 'utils/ErrorHandler';
 import { getExchangeInfo } from 'utils/getExchangeInfo';
 import { getPrice } from 'utils/getPrice';
@@ -119,7 +118,12 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({
         <div className="candy-order-detail-left">{order && <Viewer order={order} />}</div>
         <div className="candy-order-detail-right">
           {isUserListing && <div className="candy-status-tag-inline">Your Listing</div>}
-          <div className="candy-order-detail-title">{order?.name}</div>
+          <div className="candy-order-detail-title">
+            {order?.name}
+            <Tooltip inner="Verified Collection">
+              {order?.verifiedNftCollection === 1 && <IconVerified size={30} />}
+            </Tooltip>
+          </div>
           <div className="candy-stat">
             <div className="candy-label">PRICE</div>
             <div className="candy-price">{orderPrice ? `${orderPrice} ${exchangeInfo.symbol}` : 'N/A'}</div>

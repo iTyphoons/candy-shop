@@ -2,9 +2,11 @@ import { CandyShop } from '@liqnft/candy-shop-sdk';
 import { Order as OrderSchema } from '@liqnft/candy-shop-types';
 import { AnchorWallet } from '@solana/wallet-adapter-react';
 import { IconPlayer } from 'assets/IconPlayer';
+import { IconVerified } from 'assets/IconVerified';
 import { BuyModal } from 'components/BuyModal';
 import { CancelModal } from 'components/CancelModal';
 import { LiqImage } from 'components/LiqImage';
+import { Tooltip } from 'components/Tooltip';
 import React, { useState } from 'react';
 import { getExchangeInfo } from 'utils/getExchangeInfo';
 import { getPrice } from 'utils/getPrice';
@@ -50,8 +52,11 @@ export const Order: React.FC<OrderProps> = ({ order, wallet, walletConnectCompon
         />
         <div className="candy-order-info">
           {order?.nftAnimationLink?.includes('ext=mp4') && <IconPlayer className="candy-order-player-icon" />}
-          <div className="candy-order-name candy-line-limit-1">
-            {`${order?.name}${order?.edition !== 0 ? ` #${order?.edition}` : ''}`}
+          <div className="candy-order-name-container">
+            <div className="candy-order-name candy-line-limit-1">
+              {`${order?.name}${order?.edition !== 0 ? ` #${order?.edition}` : ''}`}
+            </div>
+            <Tooltip inner="Verified Collection">{order?.verifiedNftCollection === 1 && <IconVerified />}</Tooltip>
           </div>
           <div className="candy-order-ticker candy-line-limit-1">{order?.ticker}</div>
           <div className="candy-order-price candy-line-limit-1">

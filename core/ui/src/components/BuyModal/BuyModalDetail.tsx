@@ -1,8 +1,10 @@
 import { fetchNFTByMintAddress } from '@liqnft/candy-shop-sdk';
 import { Nft, Order as OrderSchema } from '@liqnft/candy-shop-types';
 import { web3 } from '@project-serum/anchor';
+import { IconVerified } from 'assets/IconVerified';
 import { NftAttributes } from 'components/NftAttributes';
 import { NftStat } from 'components/NftStat';
+import { Tooltip } from 'components/Tooltip';
 import { Viewer } from 'components/Viewer';
 import { ShopExchangeInfo } from 'model';
 import React, { useEffect, useState } from 'react';
@@ -53,7 +55,12 @@ const BuyModalDetail: React.FC<BuyModalDetailProps> = ({
         <Viewer order={order} />
       </div>
       <div className="candy-buy-modal-container">
-        <div className="candy-title">{order?.name}</div>
+        <div className="candy-buy-modal-title">
+          {order?.name}
+          <Tooltip inner="Verified Collection">
+            {order?.verifiedNftCollection === 1 && <IconVerified size={30} />}
+          </Tooltip>
+        </div>
         <div className="candy-buy-modal-control">
           <div>
             <div className="candy-label">PRICE</div>
